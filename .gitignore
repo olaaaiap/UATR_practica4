@@ -39,3 +39,17 @@
 
 # debug information files
 *.dwo
+
+.vs/
+.vcxproj.user
+
+x64/
+Debug/
+Release/
+
+# Visual Studio build logs
+*.log
+*.tlog
+*.idb
+*.lastbuildstate
+*.recipe
