@@ -52,7 +52,7 @@ CubeTex::CubeTex()
 	// Material y textura para caras verticales
 	GLSLMaterial* matLados = new GLSLMaterial();
 	matLados->loadPrograms({ "data/shader.vert", "data/shader.frag" });
-	GLTexture* texFront = new GLTexture("data/front.png");
+	GLTexture* texFront = new GLTexture("data/top.png");
 	texFront->update();
 	matLados->setColorText(texFront);
 	glm::vec4 zeroColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -67,17 +67,19 @@ CubeTex::CubeTex()
 
 	std::vector<vertex_t> vertTapas =
 	{
-	  //Cara superior
-	  {{0.5f,0.5f,0.5f, 1.0f}, {1,1}},
-	  {{-0.5f,0.5f,0.5f, 1.0f}, {0,1}},
-	  {{-0.5f,-0.5f,0.5f, 1.0f}, {0,0}},
-	  {{0.5f, -0.5f,0.5f, 1.0f}, {1,0}},
-	  //Cara inferior
-	  {{0.5f,0.5f, -0.5f, 1.0f}, {1,1}},
-	  {{-0.5f, 0.5f, -0.5f, 1.0f}, {0,1}},
-	  {{-0.5f,-0.5f, -0.5f, 1.0f}, {0,0}},
-	  {{0.5f, -0.5f, -0.5f, 1.0f}, {1,0}},
+		//Cara superior
+		{{-0.5f,0.5f,0.5f, 1.0f}, {0,0}},
+		{{0.5f,0.5f,0.5f, 1.0f}, {1,0}},
+		{{0.5f,0.5f,-0.5f, 1.0f}, {1,1}},
+		{{-0.5f, 0.5f,-0.5f, 1.0f}, {0,1}},
+		//Cara inferior
+		{{-0.5f,-0.5f, -0.5f, 1.0f}, {0,0}},
+		{{0.5f, -0.5f, -0.5f, 1.0f}, {1,0}},
+		{{0.5f,-0.5f, 0.5f, 1.0f}, {1,1}},
+		{{-0.5f, -0.5f,0.5f, 1.0f}, {0,1}},
 	}; //posiciones de vertices
+
+
 
 	for (auto v : vertTapas)
 	{
@@ -86,15 +88,16 @@ CubeTex::CubeTex()
 
 	auto idxTapas = meshTapas->getTriangleList(); //puntero a la lista de indices de triangulos de esta malla
 	*idxTapas = {
-		4,5,1, 4,1,0, //cara superior
-		3,2,6, 3,6,7//cara inferior
+		0,1,2, 0,2,3, //cara superior
+		4,5,6, 4,6,7//cara inferior
 	};
+
 
 
 	// Material y textura para caras verticales
 	GLSLMaterial* matTapas = new GLSLMaterial();
 	matTapas->loadPrograms({ "data/shader.vert", "data/shader.frag" });
-	GLTexture* texTop = new GLTexture("data/top.png");
+	GLTexture* texTop = new GLTexture("data/front.png");
 	texTop->update();
 	matTapas->setColorText(texTop);
 	matTapas->setColorRGBA(zeroColor);
