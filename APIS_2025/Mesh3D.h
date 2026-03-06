@@ -25,7 +25,9 @@ public:
 	Material* getMaterial() { return mat; }
 
 	void setMaterial(Material* m) { mat = m; }
-
+	void setMeshId(int id) { meshId = id; }
+	void clearvVertList() { vVertList.clear(); }
+	void clearvTriangleIdxList() { vTriangleIdxList.clear(); }
 
     Mesh3D(); // Constructor por defecto
 

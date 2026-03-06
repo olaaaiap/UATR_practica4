@@ -2,18 +2,18 @@
 #include "mapi/common.h"
 #include "InputManager.h"
 
-typedef struct {
-	double xPos;
-	double yPos;
-	std::map<int, bool> buttonState;
-} mouseStats_t;
+//typedef struct {
+//	double xPos;
+//	double yPos;
+//	std::map<int, bool> buttonState;
+//} mouseStats_t;
 
 class GLFWInputManager: public InputManager
 {
 public:
 	static inline GLFWwindow* window;
 	static inline std::map<int, bool>keyboardState; //Mapa de carácteres para poder consultar si una tecla está apretada o no
-	static inline mouseStats_t mouseState; //Mouse state
+	//static inline mouseStats_t mouseState; //Mouse state
 	
 	void init(GLFWwindow* window) override; //Initialize key manager
 	
