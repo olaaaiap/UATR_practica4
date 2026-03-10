@@ -105,6 +105,9 @@
     <ClCompile Include="CameraFPS.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="AsianTown.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mapi\common.h">
@@ -186,6 +189,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="CameraFPS.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="AsianTown.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

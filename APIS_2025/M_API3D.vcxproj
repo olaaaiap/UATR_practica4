@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="APIS3D_2025.cpp" />
+    <ClCompile Include="AsianTown.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraFPS.cpp" />
     <ClCompile Include="CameraKeyboard.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsianTown.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraFPS.h" />
     <ClInclude Include="CameraKeyboard.h" />

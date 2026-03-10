@@ -52,29 +52,53 @@ void GLSLProgram::addProgram(std::string fileName)
     shaders.push_back(static_cast<IProgram*>(shader));
 }
 
+//void GLSLProgram::linkProgram()
+//{
+//    //crear programa
+//    programId = glCreateProgram();
+//
+//    //por cada shader en shaderList
+//    for (auto& c : shaders)
+//    {
+//        //compilar
+//        GLSLShader shader(c->fileName, c->type);
+//        if (shader.compiled)
+//        {
+//            //atar al programa
+//            glAttachShader(programId, shader.idProgram);
+//        }
+//    }
+//    //linkar programas
+//    glLinkProgram(programId);
+//
+//	checkLinkerErrors();
+//
+//    readVarList();
+//    //limpiar datos
+//}
 void GLSLProgram::linkProgram()
 {
-    //crear programa
     programId = glCreateProgram();
 
-    //por cada shader en shaderList
-    for (auto& c : shaders)
+    for (auto& p : shaders)
     {
-        //compilar
-        GLSLShader shader(c->fileName, c->type);
-        if (shader.compiled)
-        {
-            //atar al programa
-            glAttachShader(programId, shader.idProgram);
-        }
+        auto* shader = dynamic_cast<GLSLShader*>(p);
+        if (!shader) continue;
+
+        if (!shader->compiled)
+            shader->compile();
+
+        if (shader->compiled)
+            glAttachShader(programId, shader->idProgram);
+        else
+            std::cout << "ERROR: Shader no compilado: " << shader->fileName << "\n";
     }
-    //linkar programas
+
     glLinkProgram(programId);
+    checkLinkerErrors();
 
-	checkLinkerErrors();
-
-    readVarList();
-    //limpiar datos
+    if (linked)
+        readVarList();
 }
 
 void GLSLProgram::use()

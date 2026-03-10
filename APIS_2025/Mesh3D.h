@@ -33,9 +33,11 @@ public:
 
     int getMeshID(); // Devuelve el ID único de esta malla
 
-    void addVertex(vertex_t vertex);
+    void addVertex(const vertex_t& vertex);
 
     std::vector<vertex_t>* getVertList(); // Método para acceder a la lista de vértices
 
     std::vector<glm::uint32>* getTriangleList() { return &vTriangleIdxList; }
+
+    void addTriangleIdxList(glm::uint32 idx) { vTriangleIdxList.push_back(idx); }
 };

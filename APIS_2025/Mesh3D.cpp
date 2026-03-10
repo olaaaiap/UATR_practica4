@@ -10,7 +10,7 @@ int Mesh3D::getMeshID() {
     return meshId;
 }
 
-void Mesh3D::addVertex(vertex_t vertex) {
+void Mesh3D::addVertex(const vertex_t& vertex) {
     vVertList.push_back(vertex);
 }
 
