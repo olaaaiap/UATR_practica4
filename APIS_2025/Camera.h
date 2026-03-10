@@ -15,6 +15,10 @@ protected:
 	glm::mat4 projection;
 	glm::vec3 up;
 	glm::vec3 lookAt;
+	glm::vec3 lookAtPrime;//look at original, usado en el constructor
+
+	glm::vec3 direction;
+
 	projectionType_e type; //enumerador para elegir entre cámaras de tipo ortogonal o perspectiva
 	double fovy = 45; //angulo de apertura en grados
 	double aspectRatio = 4.0 / 3.0; //4:3

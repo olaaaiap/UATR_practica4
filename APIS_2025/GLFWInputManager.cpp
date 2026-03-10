@@ -7,7 +7,9 @@ void GLFWInputManager::init(GLFWwindow* window)
 	glfwSetMouseButtonCallback(window, GLFWInputManager::mouseButtonEvent);
 	glfwSetCursorPosCallback(window, GLFWInputManager::mousePosEvent);
 	GLFWInputManager::window = window;
-	glfwSetCursorPos(window, 0, 0);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPos(window, 0.0, 0.0);
 }
 
 //void GLFWInputManager::setKMCursorPos(double x, double y)

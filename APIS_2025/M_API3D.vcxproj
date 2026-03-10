@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="APIS3D_2025.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraFPS.cpp" />
     <ClCompile Include="CameraKeyboard.cpp" />
     <ClCompile Include="CubeTex.cpp" />
     <ClCompile Include="FactoryEngine.cpp" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraFPS.h" />
     <ClInclude Include="CameraKeyboard.h" />
     <ClInclude Include="CubeTex.h" />
     <ClInclude Include="FactoryEngine.h" />

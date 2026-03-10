@@ -4,6 +4,10 @@ Camera::Camera(projectionType_e type, glm::vec3 position, glm::vec3 up, glm::vec
 	: type(type), up(up), lookAt(lookAt)
 {
 	posicion = glm::vec4(position, 1.0f);
+	direction = normalize(lookAt - glm::vec3(posicion));
+	lookAtPrime = direction;
+	rotacion = glm::vec4(0.0f);
+	escalado = glm::vec4(1.0f);
 	computeProjectionMatrix();
 	computeViewMatrix();
 }
