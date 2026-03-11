@@ -67,8 +67,8 @@ void Object3D::loadObj(std::string objFile, GLSLMaterial* mat)
     std::vector<glm::vec2> vTC;
     std::vector<glm::vec4> vNorm;
     std::string line;
-    Mesh3D m;
-    m.setMaterial(nullptr);
+    Mesh3D* m = new Mesh3D();
+    m->setMaterial(nullptr);
     int vertexOffset = 0;
     bool computeNormals = false;
     while (std::getline(f, line, '\n')) {
@@ -78,14 +78,22 @@ void Object3D::loadObj(std::string objFile, GLSLMaterial* mat)
         if (key[0] != '#') {
             if (key == "o")
             {
-                if (m.getMaterial()) {
-                    m.setMeshId(meshIdCounter++);
-					addMesh(&m);
+                if (m->getMaterial() && !m->getVertList()->empty() && !m->getTriangleList()->empty())
+                {
+                    m->setMeshId(meshIdCounter++);
+                    addMesh(m);
+                    m = nullptr;
                 }
-                m.setMaterial(mat);
-                m.clearvVertList();
-				m.clearvTriangleIdxList();
-                vertexOffset = vPos.size();
+                else
+                {
+                    delete m;
+                    m = nullptr;
+                }
+
+                m = new Mesh3D();
+                m->setMaterial(mat);
+                vertexOffset = static_cast<int>(vPos.size());
+
             }
             else if (key == "v")
             {
@@ -114,13 +122,6 @@ void Object3D::loadObj(std::string objFile, GLSLMaterial* mat)
                 int vIndex[3] = { 0 };
                 for (int i = 0; i < 3; i++)
                 {
-                    /*  str >> vert;
-                      auto indexes = splitString<int>(vert, '/');
-                      v[i] = { vPos[indexes[0] - 1],{0,0,0,0},//vNorm[indexes[2] -m1],
-                          vTC[indexes[1] - 1] };
-                      this->vertexList[indexes[0] - 1 - vertexOffset] = v[i];
-                      this->vertexIndexList.push_back(indexes[0] - 1 - vertexOffset);
-                      */
                     str >> vert;
                     auto indexes = splitString<int>(vert, '/');
                     if (indexes.size() == 3) //si hay tres índices por faceta, se carga la información de normales y textura
@@ -135,40 +136,27 @@ void Object3D::loadObj(std::string objFile, GLSLMaterial* mat)
                     this->vertexList[indexes[0] - 1 - vertexOffset] = v[i];
                     this->vertexIndexList.push_back(indexes[0] - 1 - vertexOffset);
 
-                    m.addVertex(v[i]);
-                    m.getTriangleList()->push_back(
-                        static_cast<glm::uint32>(m.getVertList()->size() - 1)
+                    m->addVertex(v[i]);
+                    m->getTriangleList()->push_back(
+                        static_cast<glm::uint32>(m->getVertList()->size() - 1)
                     );
                 }
             }
         }
     }
-    /*if (computeNormals)
-        this->recomputeNormals();*/
-    if (m.getMaterial()) {
-		m.setMeshId(meshIdCounter++);
-		addMesh(&m);
+
+    if (m->getMaterial() && !m->getVertList()->empty() && !m->getTriangleList()->empty())
+    {
+        m->setMeshId(meshIdCounter++);
+        addMesh(m);
+        m = nullptr;
     }
+    else
+    {
+        delete m;
+        m = nullptr;
+    }
+
+    if (m) delete m;
 }
-
-
-//
-//void Object3D::recomputeNormals()
-//{
-//    for (auto& v : this->vertexList) //por cada vértice, resetear sus normales
-//        v.vNormal = { 0,0,0,0 };
-//    for (auto it = this->vertexIndexList.begin(); it != vertexIndexList.end();)//recorrer la lista de índices de vértices
-//    {
-//        vertex_t& v1 = this->vertexList[*it]; it++; //cada tres vértices, una faceta
-//        vertex_t& v2 = this->vertexList[*it]; it++;
-//        vertex_t& v3 = this->vertexList[*it]; it++;
-//        glm::vec3 l1 = glm::normalize(v2.vPosition - v1.vPosition); //obtener dos aristas
-//        glm::vec3 l2 = glm::normalize(v2.vPosition - v3.vPosition);
-//        glm::vec3 norm = glm::normalize(glm::cross(l2, l1)); //obtener la normal
-//        v1.vNormal = glm::normalize(v1.vNormal + glm::vec4(norm, 0.0f)); //acumular la normal, en caso de ser vértices compartidos
-//        v2.vNormal = glm::normalize(v2.vNormal + glm::vec4(norm, 0.0f));
-//        v3.vNormal = glm::normalize(v3.vNormal + glm::vec4(norm, 0.0f));
-//    }
-//
-//}
 

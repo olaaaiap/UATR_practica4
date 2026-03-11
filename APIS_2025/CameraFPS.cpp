@@ -9,17 +9,17 @@ CameraFPS::CameraFPS(projectionType_e type, glm::vec3 position, glm::vec3 up, gl
 void CameraFPS::step(double timeStep)
 {
     //actualizar movimientos
-    double vel = 1.0; //unidadesGl segundo
+    double vel = 0.4; //unidadesGl segundo
     double velRot = 1.0;
 
     if (GLFWInputManager::keyboardState[GLFW_KEY_D])
     {
-        this->posicion.x += vel * timeStep;
+        this->posicion.x -= vel * timeStep;
         lookAt.x += vel * timeStep;
     }
     if (GLFWInputManager::keyboardState[GLFW_KEY_A])
     {
-        this->posicion.x -= vel * timeStep;
+        this->posicion.x += vel * timeStep;
         lookAt.x -= vel * timeStep;
     }
     if (GLFWInputManager::keyboardState[GLFW_KEY_W])

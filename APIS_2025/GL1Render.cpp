@@ -25,7 +25,7 @@ void GL1Render::init()
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 		// Use configured width/height
-		this->window = glfwCreateWindow(this->GetWidth(), this->GetHeight(), "Practica 2 APIS3D", nullptr, nullptr); //nullptr->para que coja los valores por defecto
+		this->window = glfwCreateWindow(this->GetWidth(), this->GetHeight(), "Practica 4 APIS3D", nullptr, nullptr); //nullptr->para que coja los valores por defecto
 		
 		glfwMakeContextCurrent(this->window);
 
