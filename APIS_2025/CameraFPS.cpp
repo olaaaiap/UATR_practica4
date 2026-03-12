@@ -1,5 +1,6 @@
 #include "CameraFPS.h"
 #include "GLFWInputManager.h"
+#include <algorithm>
 
 CameraFPS::CameraFPS(projectionType_e type, glm::vec3 position, glm::vec3 up, glm::vec3 lookAt)
 	:Camera(type, position, up, lookAt)
@@ -8,29 +9,27 @@ CameraFPS::CameraFPS(projectionType_e type, glm::vec3 position, glm::vec3 up, gl
 
 void CameraFPS::step(double timeStep)
 {
-    //actualizar movimientos
-    double vel = 0.4; //unidadesGl segundo
+    double vel = 0.4;
     double velRot = 1.0;
+    const float mouseSens = 0.10f;
+    glm::vec3 strafeDir = normalize(glm::cross(glm::vec3(this->up), glm::vec3(direction)));
+
 
     if (GLFWInputManager::keyboardState[GLFW_KEY_D])
     {
-        this->posicion.x -= vel * timeStep;
-        lookAt.x += vel * timeStep;
+        this->posicion += glm::vec4(strafeDir, 0.0f) * (float)(vel * timeStep);
     }
     if (GLFWInputManager::keyboardState[GLFW_KEY_A])
     {
-        this->posicion.x += vel * timeStep;
-        lookAt.x -= vel * timeStep;
+        this->posicion -= glm::vec4(strafeDir, 0.0f) * (float)(vel * timeStep);
     }
     if (GLFWInputManager::keyboardState[GLFW_KEY_W])
     {
-        this->posicion.z += vel * timeStep;
-        lookAt.z += vel * timeStep;
+        this->posicion += glm::vec4(direction, 0.0f) * (float)(vel * timeStep);
     }
     if (GLFWInputManager::keyboardState[GLFW_KEY_S])
     {
-        this->posicion.z -= vel * timeStep;
-        lookAt.z -= vel * timeStep;
+        this->posicion -= glm::vec4(direction, 0.0f) * (float)(vel * timeStep);
 
     }
 
@@ -52,6 +51,9 @@ void CameraFPS::step(double timeStep)
 
         rotacion.y -= dx * sensitivity * velRot;
         rotacion.x -= dy * sensitivity * velRot;
+
+        rotacion.x = std::clamp(rotacion.x, -89.0f, 89.0f); //Para que la camara no se de la vuelta
+
     }
     else
     {
@@ -67,8 +69,7 @@ void CameraFPS::step(double timeStep)
     forward = glm::normalize(forward);
 
     lookAt = glm::vec3(posicion) + forward;
-
-    direction = glm::vec4(forward, 0.0f);
+    direction = glm::vec4(normalize(glm::vec3(lookAt) - glm::vec3(posicion)), 0);
 
     //calcular matriz vista
     view = glm::lookAt(glm::vec3(posicion), glm::vec3(lookAt), glm::vec3(0, 1, 0));
