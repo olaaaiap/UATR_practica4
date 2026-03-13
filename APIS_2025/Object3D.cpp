@@ -100,7 +100,7 @@ void Object3D::loadObj(std::string objFile, GLSLMaterial* mat)
                 glm::vec4 v(1.0f);
                 str >> v.x >> v.y >> v.z;
                 vPos.push_back(v);
-                this->vertexList.push_back(vertex_t{});
+                m->addVertex(vertex_t{});
             }
             else if (key == "vn")
             {
@@ -133,13 +133,10 @@ void Object3D::loadObj(std::string objFile, GLSLMaterial* mat)
                         v[i] = { vPos[indexes[0] - 1],{0,0} };
                         computeNormals = true; //se deben recalcular las normales al acabar de cargar información
                     }
-                    this->vertexList[indexes[0] - 1 - vertexOffset] = v[i];
-                    this->vertexIndexList.push_back(indexes[0] - 1 - vertexOffset);
 
-                    m->addVertex(v[i]);
-                    m->getTriangleList()->push_back(
-                        static_cast<glm::uint32>(m->getVertList()->size() - 1)
-                    );
+                    m->setVertListInPos(indexes[0] - 1 - vertexOffset, v[i]);
+                    m->getTriangleList()->push_back(static_cast<glm::uint32>(indexes[0] - 1 - vertexOffset));
+
                 }
             }
         }

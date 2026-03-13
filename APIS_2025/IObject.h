@@ -17,8 +17,8 @@ public:
 
 
 
-	std::vector<vertex_t> vertexList;
-	std::vector<int> vertexIndexList;
+	/*std::vector<vertex_t> vertexList;
+	std::vector<int> vertexIndexList;*/
 
 	Mesh3D* GetMesh(int pos);
 	std::vector<Mesh3D*>& getMeshes();

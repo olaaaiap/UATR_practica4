@@ -36,8 +36,11 @@ public:
     void addVertex(const vertex_t& vertex);
 
     std::vector<vertex_t>* getVertList(); // Método para acceder a la lista de vértices
+    void setVertList(const std::vector<vertex_t>& vertList) { vVertList = vertList; }
+    void setVertListInPos(int pos, const vertex_t& vert) { vVertList[pos] = vert; }
+
+    void setTriangleIdxList(const std::vector<glm::uint32>& triangleIdxList) { vTriangleIdxList = triangleIdxList; }
 
     std::vector<glm::uint32>* getTriangleList() { return &vTriangleIdxList; }
 
-    void addTriangleIdxList(glm::uint32 idx) { vTriangleIdxList.push_back(idx); }
 };
